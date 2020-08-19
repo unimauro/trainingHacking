@@ -64,4 +64,10 @@ func main(){
 }
 
 
+if x==1{
+	fmt.Println("X is equal 1")
+}else{
+	fmt.Println("X is not equal 1")
+}
+
 
