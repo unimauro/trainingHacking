@@ -71,3 +71,14 @@ if x==1{
 }
 
 
+
+switch x {
+	case "foo":
+		fmt.Println("Found foo")
+	case "bar":
+		fmt.Println("Found bar")
+	default:
+		fmt.Println("Default case")
+}
+
+
