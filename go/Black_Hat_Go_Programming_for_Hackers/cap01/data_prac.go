@@ -82,3 +82,20 @@ switch x {
 }
 
 
+
+func foo ( i interface{})
+{
+
+	switch v:= i(type){
+	
+	case int:
+		fmt.Println("I'm ad interger!")
+	case string:
+		fmt.Println("I'm a string!")
+	default :
+		fmt.Println("Unknown type!")
+
+	}
+}
+
+
