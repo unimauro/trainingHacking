@@ -56,3 +56,8 @@ istart = 0 ; // Start search at the beginning
  raw[i] = maxval + limit * (1.0 - exp ( scale * (raw[i] - maxval) ) ) ;
  }
 }
+
+//
+
+
+
