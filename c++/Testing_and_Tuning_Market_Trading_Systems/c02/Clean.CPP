@@ -45,4 +45,14 @@ istart = 0 ; // Start search at the beginning
  minval *= 1.0 - 1.e-10 ;
  }
 
+//
 
+ limit = (maxval - minval) * (1.0 - cover) ;
+ scale = -1.0 / (maxval - minval) ;
+ for (i=0 ; i<n ; i++) {
+ if (raw[i] < minval) // Left tail
+ raw[i] = minval - limit * (1.0 - exp ( scale * (minval - raw[i]) ) ) ;
+ else if (raw[i] > maxval) // Right tail
+ raw[i] = maxval + limit * (1.0 - exp ( scale * (raw[i] - maxval) ) ) ;
+ }
+}
