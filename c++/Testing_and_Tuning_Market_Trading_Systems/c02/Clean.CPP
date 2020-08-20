@@ -11,3 +11,38 @@ void clean_tails (
  for (i=0 ; i<n ; i++)
  work[i] = raw[i] ;
  qsortd ( 0 , n-1 , work ) ; // Sort data ascending
+
+
+///
+
+istart = 0 ; // Start search at the beginning
+ istop = (int) (cover * (n+1)) - 1 ; // This gives desired coverage
+ if (istop >= n) // Happens if careless user has tail=0
+ istop = n - 1 ;
+
+
+///
+
+ best = 1.e60 ; // Will be minimum span
+ best_start = best_stop = 0 ; // Not needed; shuts up LINT
+ while (istop < n) { // Test every possible position
+ range = work[istop] - work[istart] ; // This is what we minimize
+ if (range < best) {
+ best = range ;
+ best_start = istart ;
+ best_stop = istop ;
+ }
+ ++istart ;
+ ++istop ;
+ }
+
+///
+
+[200~ minval = work[best_start] ; // Value at start of interior interval
+ maxval = work[best_stop] ; // And end
+ if (maxval <= minval) { // Rare pathological situation
+ maxval *= 1.0 + 1.e-10 ;
+ minval *= 1.0 - 1.e-10 ;
+ }
+
+
