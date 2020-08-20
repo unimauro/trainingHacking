@@ -79,4 +79,27 @@ ielse {
  } // // Else not weighted
  } // For ivar
 
+do_active_only = 0 ; // Begin with a complete pass
+ for (iter=0 ; iter<maxits ; iter++) { // Main iteration loop; maxits is for safety only
+ active_set_changed = 0 ; // Did any betas go to/from 0.0?
+ for (ivar=0 ; ivar<nvars ; ivar++) { // Descend on this beta
+ if (do_active_only && beta[ivar] == 0.0)
+ continue ;
+ [ Compute correction ]
+ if (correction != 0.0) { // Did this beta change?
+ if ((beta[ivar]==0.0 && new_beta != 0.0) || (beta[ivar] != 0.0 && new_beta==0.0))
+ active_set_changed = 1 ;
+ }
+ } // For all variables; a complete pass
+ converged = [ Convergence test ] ;
 
+ if (do_active_only) { // Are we iterating on the active set only?
+ if (converged) // If we converged
+ do_active_only = 0 ; // We now do a complete pass
+ }
+ else { // We just did a complete pass (all variables)
+ if (converged && ! active_set_changed)
+ break ;
+ do_active_only = 1 ; // We now do an active-only pass
+ }
+ } // Outer loop iterations
